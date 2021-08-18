@@ -1,0 +1,213 @@
+body{ background-color: #f8e4d5;}
+	  
+/*页面框架*/
+.layui-layout-admin{ }
+	
+/*页面头部*/
+.layui-layout-admin .layui-header{ box-lines: unset; border-radius: 50px; background: url(../img/001.jpg);
+									border: 1px #7c370d solid;}
+	
+/*页面头部导航*/
+.layui-header .title{ position: absolute; line-height: 60px; top: 0; width: 100%; text-align: center; font-size: 25px; color: bisque;}
+.layui-header .layui-nav .layui-nav-item .layui-icon-spread-left{ font-size: 25px; margin-left: 22px;}
+.layui-header .layui-nav .layui-nav-item .layui-icon-set{ font-size: 25px;}
+.layui-nav-bar{ visibility: hidden;}
+
+/*test*/
+.layui-nav .layui-nav-item a:hover{color: #00F7DE;}
+	
+	
+/*页面左侧栏*/
+.layui-side{ overflow-y: hidden; margin-left: 25px;}
+.layui-side .layui-nav{ border-radius: 0px 0px 10px 10px;}
+	.layui-side .layui-nav .layui-nav-item{
+		/* border-bottom: 1px #DEDEDE solid; */
+	}
+.layui-side .layui-nav li:hover{ border-top:  1px #9b5039 solid; color: #009688;}
+.layui-side .layui-nav .layui-nav-item .text{ text-align: center; margin-left: -10px; font-size: 17px;
+												background: url(../img/006.jpeg);}
+.layui-side .layui-nav .layui-nav-item .layui-icon{ margin-right: 10px; font-size: 20px;}
+
+
+.layui-body{}
+
+.layui-body .layui-panel{
+	margin: 2% 1% 2% 1%;
+}
+
+@media screen and (min-width: 768px) {
+	.layui-body{
+		margin-left: 25px;
+		margin-right: 25px;
+	}
+}
+
+/* 首页轮播图*/
+#banner{
+	margin-left: 2%;
+	margin-top: 10px;
+	border-radius: 10px;
+}
+#banner .banner-body{
+	border-radius: 10px;
+}
+	
+	
+/* 文章列表 */
+.post {
+	background-color: #f8e1bd; position: relative; width: 100%;
+}
+.post-list{
+	background: url(../img/123.png);
+	background-size: cover;
+	padding-bottom: 10px;
+}
+.post .post-header{
+	width: 100%;
+	/* height: 500px; */
+	/* background-color: #009688; */
+}
+.post .post-header .img{
+	max-width: 100%;
+}
+.post .post-header .post-title{
+	position: relative;
+	width: 100%;
+	height: 80px;
+	background: rgba(0,0,0,0.3);
+}
+.post .post-header .post-title-have-img{
+	position: relative;
+	margin-top: -80px;
+}
+.post .post-header .post-title .title{
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	line-height: 60px;
+	font-size: 19px;
+	font-weight: 700;
+	color: #462514;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.post .post-header .post-title .meta{
+	width: 100%;
+	text-align: center;
+	height: 20px;
+	color: #e0c286;
+	font-size: 14px;
+	position: absolute;
+	bottom: 15%;
+}
+.post .post-abstract{
+	width: 96%;
+	margin: 2% 2% 2% 2%;
+}
+.post .post-readmore{ width: 155px; display: block; margin: 0 auto; text-align: center; background-color: #8d6345;}
+.post .post-content{
+	width: 96%;
+	margin-left: 2%;
+	margin-top: 30px;
+}
+
+/*字体媒体查询*/
+@media screen and (min-width: 768px) {
+	.post .post-header .post-title{
+		height: 100px;
+	}
+	.post .post-header .post-title-have-img{
+		margin-top: -100px;
+	}
+	.post .post-header .post-title .title{
+		line-height: 80px;
+		font-size: 20px;
+	}
+	.post .post-header .post-title .meta{
+		font-size: 16px;
+	}
+}
+@media screen and (min-width: 1100px) {
+	.post .post-header .post-title{
+		height: 110px;
+	}
+	.post .post-header .post-title-have-img{
+		margin-top: -110px;
+	}
+	.post .post-header .post-title .title{
+		line-height: 90px;
+		font-size: 24px;
+	}
+	.post .post-header .post-title .meta{
+		font-size: 18px;
+	}
+}
+@media screen and (min-width: 1200px) {
+	.post .post-header .post-title{
+		height: 120px;
+	}
+	.post .post-header .post-title-have-img{
+		margin-top: -120px;
+	}
+	.post .post-header .post-title .title{
+		line-height: 100px;
+		font-size: 27px;
+	}
+	.post .post-header .post-title .meta{
+		font-size: 18px;
+	}
+}
+
+
+/* .post .post-abstract{ width: 96%; height: 115px; margin: 2% 2% 0% 2%; overflow: hidden; text-overflow: ellipsis;
+						display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; color: #555555;} */
+
+/*文章内容*/
+.post .post-content{
+	font-size: 16px;
+	color: #000000;
+	padding-bottom: 15px;
+}
+.post .post-content a{
+	color: #2D93CA;
+	border-bottom: 1px solid #2D93CA;
+}
+.post .post-content p{
+	line-height: 27px;
+}					
+/*footer*/
+.layui-body .layui-row .layui-body-footer{
+	background: url(../img/010.jpeg);
+	background-size: cover;
+	border-radius: 10px;
+	height: 100px;
+	font-size: 17px;
+	color: #D2D2D2;
+}
+.layui-body-footer .info{
+	width: 50%;
+	margin-left: 25%;
+	text-align: center;
+	line-height: 30px;
+	margin-top: 10px;
+}
+.layui-body-footer .info span{
+	color: bisque;
+	font-size: 15px;
+}
+.layui-body-footer .power{
+	width: 50%;
+	margin-left: 25%;
+	text-align: center;
+	line-height: 30px;
+}
+.layui-body-footer .power a{
+	color: #01AAED;
+}
+.layui-body-footer .guest-count{
+	width: 50%;
+	margin-left: 25%;
+	text-align: center;
+	line-height: 30px;
+}

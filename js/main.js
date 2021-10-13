@@ -1,94 +1,210 @@
-//layui js初始化
-layui.use(['element', 'layer', 'util'], function(){
-	  var element = layui.element
-	  ,layer = layui.layer
-	  ,util = layui.util
-	  ,$ = layui.$;	
-
-layui.use('carousel', function(){
-	    var carousel = layui.carousel;
-	    //建造实例
-	    carousel.render({
-	      elem: '#banner'
-	      ,width: '96%' //设置容器宽度
-	      ,arrow: 'always' //始终显示箭头
-	      //,anim: 'updown' //切换动画方式
-	    });
-	  });
-
-layui.use('laypage', function(){
-	    var laypage = layui.laypage;
-	    
-	    //执行一个laypage实例
-	    laypage.render({
-	      elem: 'pager' //注意，这里的 test1 是 ID，不用加 # 号
-	      ,count: 50 //数据总数，从服务端得到
-	    });
-	  }); 
-	  
-//媒体查询工具加载
+/* init page*/
 var mediaUtil = new MediaUtil();
-	  
-//菜单初始化
-let menus = $(".layui-side .layui-nav-item");//全部菜单项
-	let uls = $(".layui-side ul");//菜单
-	let bodys = $(".layui-body");//主体内容
-	var leftMenu = new LeftMenu(menus,uls,bodys,50);
-	leftMenu.init();
-	  
-	  
-//菜单监听
-mediaUtil.addAllMaxWidthListener(function(){
-		let medias = new MediaUtil().maxMedias;//媒体查询器
-		if(medias[0].matches){
-			console.log('<=418'); //do something...
-		}else if(medias[1].matches){
-			console.log('>418 & <=768'); // do something...
-			leftMenu.upMenu();
-			leftMenu.leftBody(200,3);
-		}else if(medias[2].matches){
-			console.log('>768 & <=992'); // do something...
-			leftMenu.upMenu();
-			leftMenu.leftBody(200,3);
-		}else if(medias[3].matches){
-			console.log('> 992 & <=1200'); // do something...
-			leftMenu.downMenu();
-			leftMenu.rightBody(200,3);
-		}else {
-			console.log('>1200');
-			leftMenu.downMenu();
-			leftMenu.rightBody(200,3);
+var classUtil = new HTMLClassUtil();
+var cookieUtil = new CookieUtil();//load cookie util object
+
+
+
+/* search */
+var search = new Search();
+for(let i = 0; i < search.searchBtnList.length; i++){
+	search.searchBtnList[i].addEventListener("click",function() {
+		search.searchDialog.toggle();
+	});
+}
+search.searchForm[0].addEventListener('open.mdui.dialog', function() {
+	search.searchTab.handleUpdate();
+	search.searchInputInit();
+});
+search.searchForm[0].addEventListener('close.mdui.dialog', function() {
+	search.searchTab.handleUpdate();
+	search.searchInputDestory();
+});
+function subSearch(){
+	if(search.searchInput.attr("stauts") != "init") return;
+	if(search.searchInput.val() == "") return;
+	search.progressStauts(search.getCurrentTableName(),null);
+	$.ajax({
+		url : 'search.json',
+		dataType : 'json',
+		type : 'get',
+		success : callback
+	})
+	function callback(data){
+		let currentTableName = search.getCurrentTableName();
+		let findText = search.searchInput.val();
+		search.clearTableData(currentTableName);
+		for(let i = 0; i < data.length; i++){
+			let text = (currentTableName != "accurate")?data[i][currentTableName]:data[i]['title'] + data[i]['content'];
+			if(text.indexOf(findText) > -1){
+				search.insertTableData(currentTableName,data[i]);
+			}
+		}
+		search.progressStauts(currentTableName,"success");
+	}
+}
+search.searchInput[0].addEventListener("input", subSearch);//!ie
+search.searchInput[0].addEventListener("propertychange", subSearch);//ie
+/* search */
+
+/* menu */
+var leftDrawer = new mdui.Drawer('#left-drawer');
+document.getElementById("left-menu-btn").onclick = function(){
+	leftDrawer.toggle();
+}
+$(".mdui-toolbar")[0].addEventListener("unpin.mdui.headroom",function(){
+	if($(".mdui-drawer")[0] != undefined)
+		classUtil.add($(".mdui-drawer")[0],"mdui-drawer-full-height");
+});
+$(".mdui-toolbar")[0].addEventListener("pin.mdui.headroom",function(){
+	if($(".mdui-drawer")[0] != undefined)
+		classUtil.remove($(".mdui-drawer")[0],"mdui-drawer-full-height");
+});
+
+if($("#catalogueBtn").length > 0){
+	var catalogue = new Catalogue();
+	$("#catalogueBtn")[0].addEventListener("click",function(){
+		console.log($("#catalogueBtn").attr("stauts"));
+		if($("#catalogueBtn").attr("stauts") == "on" || $("#catalogueBtn").attr("stauts") == undefined){
+			catalogue.toggle();
+		}
+		$("#catalogueBtn").attr("stauts","on");
+		setTimeout(function(){
+			$("#catalogueBtn").attr("stauts","off");
+			leftDrawer.open();
+		},600);
+	});
+}
+/* menu */
+
+/* skin */
+var skin = new Skin();//load skin object
+//get default skin
+var defaultSkin = (cookieUtil.getCookie("skin") != null)? cookieUtil.getCookie("skin") : skin.defaultSkinName;
+//except dark mode skin fun
+function switchSkin(){
+	let switchSkin = $(this).attr("skin");
+	let currentSkin = $("body").attr("skin");
+	let lang = $("html").attr("lang");
+	if(currentSkin != "dark"){
+		$("body").attr("oldSkin",currentSkin);//record current skin to oldSkin
+		skin.skinListFor(currentSkin, "off");//off current skin
+		skin.switchListClassFor(currentSkin,"remove","mdui-list-item-active");//off current skin button
+		skin.skinListFor(switchSkin, "on");//on new skin
+		skin.switchListClassFor(switchSkin,"add","mdui-list-item-active");//on new skin button
+		cookieUtil.addCookie("skin",switchSkin,"1y");//set skin to cookie
+		skin.setFooterSkinText(switchSkin);
+	}else{
+		let data = [{lang:"zh-CN",msg:"请关闭夜间模式再尝试切换皮肤！"},
+					{lang:"en-US",msg:"Please turn off night mode and try switching skin again!"}];
+		let snackbarUtil = new SnackbarUtil();
+		snackbarUtil.on(data,"top");
+	}
+}
+//dark mode fun
+function switchDarkSkin(){
+	let currentSkin = $("body").attr("skin");
+	let dark = new DarkSkin();
+	if(currentSkin != "dark"){//open dark mode
+		$("body").attr("oldSkin",currentSkin);//record current skin to oldSkin
+		skin.skinListFor(currentSkin, "off");//off current skin
+		cookieUtil.addCookie("oldSkin",currentSkin,"3h");//will current skin write oldSkin cookie
+		dark.on();//dark mode open
+		cookieUtil.addCookie("skin","dark","3h");//dark mode set cookie
+		skin.setFooterSkinText("dark");
+	}else{//close dark mode
+		let oldSkin = (cookieUtil.getCookie("oldSkin") != null) ? cookieUtil.getCookie("oldSkin"):$("body").attr("oldSkin");
+		dark.off();//dark mode closed
+		skin.skinListFor(oldSkin, "on");//Restore historical skin 'oldSkin'
+		cookieUtil.addCookie("skin",oldSkin,"1y");//write cookie
+		cookieUtil.delCookie("oldSkin");//delete oldSkin
+		skin.setFooterSkinText(oldSkin);
+	}
+}
+//read cookies and initail skin
+for(let i = 0; i < skin.skinNameList.length; i++){
+	if(skin.skinNameList[i] == defaultSkin && defaultSkin != "dark"){//not dark mode load skin
+		skin.skinListFor(skin.skinNameList[i], "on");//test
+		skin.switchListClassFor(skin.skinNameList[i],"add","mdui-list-item-active");
+	}else if(skin.skinNameList[i] == defaultSkin && defaultSkin == "dark"){//dark mode load dark skin
+		skin.skinListFor(skin.skinNameList[i], "on");
+		$(skin.skinSwitchDarkList[0]).attr("checked","checked");
+	}
+	if(i < skin.skinNameList.length - 1){//give skin button set listener
+		$(skin.skinSwitchList[i]).attr("skin",skin.skinNameList[i]);
+		skin.skinSwitchList[i].addEventListener("click",switchSkin);
+	}
+	if(i == skin.skinNameList.length - 1)//give dark skin button set listener
+		skin.skinSwitchDarkList[0].addEventListener("click",switchDarkSkin);
+}
+skin.setFooterSkinText(defaultSkin);
+/* skin */
+
+/* goTop */
+if($("#goTop").length > 0){
+	var goTop = $("#goTop")[0];
+	$(document).scroll(function(){
+		if($(document).scrollTop() > 150){
+			goTop.classList.remove("mdui-fab-hide");//show
+		}else{
+			goTop.classList.add("mdui-fab-hide");//hide
 		}
 	});
-	
-	
-  //头部事件
-	  util.event('lay-header-event', {
-	    menuLeft: function(othis){
-	      // layer.msg('展开左侧菜单的操作', {icon: 0});
-		  let menus = $(".layui-side .layui-nav-item");//全部菜单项
-		  let uls = $(".layui-side ul");//菜单
-		  let bodys = $(".layui-body");//主体内容
-		  if($(uls[0]).attr("status") == "up"){
-			  leftMenu.downMenu();
-			  if(parseInt($("body").css("width")) > 992) leftMenu.rightBody(200,3);
-		  }else{
-			  leftMenu.upMenu();
-			  if(parseInt($("body").css("width")) > 992) leftMenu.leftBody(200,3);
-		  }
-	    }
-	    ,menuRight: function(){
-	      layer.open({
-	        type: 1
-	        ,title: '设置'
-	        ,content: '<div style="padding: 15px;">处理右侧面板的操作</div>'
-	        ,area: ['200px', '50%']
-	        ,offset: 'rt' //右上角
-	        ,anim: 5
-	        ,shadeClose: true
-	        ,scrollbar: false
-	      });
-	    }
-	  });
-	  
+	goTop.addEventListener("click",function(){
+		$("body,html").animate({scrollTop:10},350);
 	});
+}
+/* goTop */
+
+/* media */
+mediaUtil.addAllMaxWidthListener(function(){
+	let htmlClassUtil = new HTMLClassUtil();
+	let post = $("#body .post");
+	for(let i = 0; i < post.length; i++){
+		for(let j = 0; j < 8; j++){
+			htmlClassUtil.remove(post[i], "mdui-m-x-" + j);
+		}
+	}
+	for(let i = 0; i < post.length; i++){
+		if(mediaUtil.maxMedias[mediaUtil.xs].matches){
+			// console.log('<=418');
+			htmlClassUtil.add(post[i], "mdui-m-x-0");
+		}else if(mediaUtil.maxMedias[mediaUtil.sm].matches){
+			// console.log('>418 & <=600');
+			htmlClassUtil.add(post[i], "mdui-m-x-0");
+		}else if(mediaUtil.maxMedias[mediaUtil.md].matches){
+			// console.log('>600 & <=1024');
+			htmlClassUtil.add(post[i], "mdui-m-x-1");
+		}else if(mediaUtil.maxMedias[mediaUtil.lg].matches){
+			// console.log('> 1024 & <=1440');
+			htmlClassUtil.add(post[i], "mdui-m-x-6");
+		}else if(mediaUtil.maxMedias[mediaUtil.xl].matches){
+			// console.log('> 1440 & <=1920');
+			htmlClassUtil.add(post[i], "mdui-m-x-7");
+		}else {
+			// console.log('>1920');
+			htmlClassUtil.add(post[i], "mdui-m-x-7");
+		}
+	}
+});
+mediaUtil.addAllMaxWidthListener(function(){
+	let htmlClassUtil = new HTMLClassUtil();
+	let pager = $("#body .pager")[0];
+	for(let i = 0; i < 8; i++){
+		htmlClassUtil.remove(pager, "mdui-m-x-" + i);
+	}
+	if(mediaUtil.maxMedias[mediaUtil.xs].matches){
+		htmlClassUtil.add(pager, "mdui-m-x-0");
+	}else if(mediaUtil.maxMedias[mediaUtil.sm].matches){
+		htmlClassUtil.add(pager, "mdui-m-x-0");
+	}else if(mediaUtil.maxMedias[mediaUtil.md].matches){
+		htmlClassUtil.add(pager, "mdui-m-x-1");
+	}else if(mediaUtil.maxMedias[mediaUtil.lg].matches){
+		htmlClassUtil.add(pager, "mdui-m-x-6");
+	}else if(mediaUtil.maxMedias[mediaUtil.xl].matches){
+		htmlClassUtil.add(pager, "mdui-m-x-7");
+	}else {
+		htmlClassUtil.add(pager, "mdui-m-x-7");
+	}
+});
+/* media */

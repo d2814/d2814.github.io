@@ -98,9 +98,12 @@ body a:visited{
 .post .post-header-noimg{background: rgba(0,0,0,0.1);}
 .post .post-header .post-title{font-size: 13px; line-height: 15px; display: inline-block; font-weight: 700;}
 .post .post-header .post-subtitle{font-size: 10px; margin-top: 1%;}
-.post .post-media .post-header-bg .post-header .post-subtitle{margin-bottom: 7px;}
-.post .post-media .post-header-bg .post-tag{}
-.post .mdui-chip{height: 20px; margin-left: 2px;}
+.post .post-media-1 .post-header-bg .post-header .post-subtitle{margin-bottom: 7px;}
+.post .post-media-1 .post-header-bg .post-tag{}
+.post .post-media-3 {height: auto;}
+.post .post-media-3 .post-header-bg{position: relative; background: rgba(0,0,0,0.2);}
+.post .post-media-3 .post-header-bg .post-header .post-subtitle{margin-bottom: 7px;}
+.post .mdui-chip{height: 20px; margin-2eft: 2px;}
 .post .mdui-chip .mdui-chip-title{line-height: 20px;font-size: 12px;}
 .post .mdui-chip a{text-decoration: none;}
 .post .post-abstract{}

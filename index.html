@@ -4,18 +4,14 @@
 	<meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <title>blog</title>
-<!-- style -->
-<!-- mdui -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdui/1.0.2/css/mdui.min.css" />
-<!-- mdui -->
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- Font Awesome -->
+<!-- jquery -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<!-- jquery -->
 <!-- private -->
+<script type="text/javascript" src="/js/library.js"></script>
+<script type="text/javascript" src="/js/init.js"></script>
 <link rel="stylesheet" href="/css/main.css" />
 <!-- private -->
-
-<!-- style -->
 <meta name="generator" content="Hexo 5.4.0"></head>
 <body class="mdui-appbar-with-toolbar mdui-drawer-body-left">
 	<!-- header-nav -->
@@ -469,17 +465,11 @@
 
 	
 	<!-- js -->
-	<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- jquery -->
-<!-- mdui -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mdui/1.0.2/js/mdui.min.js"></script>
-<!-- mdui -->
-<!-- private -->
-<script type="text/javascript" src="/js/library.js"></script>
-<script type="text/javascript" src="/js/main.js"></script>
-<!-- private -->
-	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<script type="text/javascript">
+	var loadPager = new LoadPagerService($("head")[0],$("body")[0]);
+	loadPager.init(["mdui.css","font-awesome.css","mdui.js"]);
+</script>
 	<!-- js -->
 </body>
 </html>

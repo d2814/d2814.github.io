@@ -162,11 +162,9 @@ function LoadPagerService(head,body) {
 		setTimeout(function(actionList,thisObj){
 			if(thisObj.domain.loadFlag && actionList != undefined){
 				console.log("开始初始化页面！")
-				$.ajax({
-					type: "get",
-					url: "js/main.js",
-					dataType: "script"
-				})
+				$.getScript("js/main.js",function(resp,status){
+					if(status != "success"){thisObj.loadPager(actionList);}
+				});
 				console.log("初始化页面完成！")
 			}else if(actionList != undefined){
 				thisObj.loadPager(actionList);

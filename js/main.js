@@ -25,9 +25,9 @@ function subSearch(){
 	if(search.searchInput.val() == "") return;
 	search.progressStauts(search.getCurrentTableName(),null);
 	let date = new Date();
-	let h = "t=" + date.getFullYear() + (date.getMonth() + 1) + date.getDate();
+	let t = "t=" + date.getFullYear() + (date.getMonth() + 1) + date.getDate() + date.getHours();
 	$.ajax({
-		url : '/search.json?' + h,
+		url : '/search.json?' + t,
 		dataType : 'json',
 		type : 'get',
 		success : callback

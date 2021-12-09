@@ -24,8 +24,10 @@ function subSearch(){
 	if(search.searchInput.attr("stauts") != "init") return;
 	if(search.searchInput.val() == "") return;
 	search.progressStauts(search.getCurrentTableName(),null);
+	let date = new Date();
+	let h = "t=" + date.getFullYear() + (date.getMonth() + 1) + date.getDate();
 	$.ajax({
-		url : '/search.json',
+		url : '/search.json?' + h,
 		dataType : 'json',
 		type : 'get',
 		success : callback

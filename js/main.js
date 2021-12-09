@@ -25,7 +25,7 @@ function subSearch(){
 	if(search.searchInput.val() == "") return;
 	search.progressStauts(search.getCurrentTableName(),null);
 	$.ajax({
-		url : 'search.json',
+		url : '/search.json',
 		dataType : 'json',
 		type : 'get',
 		success : callback
@@ -177,10 +177,10 @@ mediaUtil.addAllMaxWidthListener(function(){
 			htmlClassUtil.add(post[i], "mdui-m-x-1");
 		}else if(mediaUtil.maxMedias[mediaUtil.lg].matches){
 			// console.log('> 1024 & <=1440');
-			htmlClassUtil.add(post[i], "mdui-m-x-6");
+			htmlClassUtil.add(post[i], "mdui-m-x-4");
 		}else if(mediaUtil.maxMedias[mediaUtil.xl].matches){
 			// console.log('> 1440 & <=1920');
-			htmlClassUtil.add(post[i], "mdui-m-x-7");
+			htmlClassUtil.add(post[i], "mdui-m-x-6");
 		}else {
 			// console.log('>1920');
 			htmlClassUtil.add(post[i], "mdui-m-x-7");

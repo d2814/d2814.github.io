@@ -436,7 +436,7 @@ body a:visited{
 
 /*SkyspacesSkin*/
 .skyspaces-body{
-	background: url(/img/skyspaces.jpg);
+	background: url(../img/skyspaces.jpg);
 	background-size: 100% 50%;
 }
 .skyspaces-body #right-drawer ol li a{

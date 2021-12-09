@@ -37,13 +37,13 @@ function LoadPagerDomain() {
 	}];
 	this.actionJson = [{
 		"name": "library.js",
-		"local": "/js/library.js"
+		"local": "js/library.js"
 	}, {
 		"name": "main.css",
-		"local": "/css/main.css"
+		"local": "css/main.css"
 	}, {
 		"name": "main.js",
-		"local": "/js/main.js"
+		"local": "js/main.js"
 	}, {
 		"name": "jquery.js",
 		"cdnjs": "jquery/3.6.0/jquery.min.js",
@@ -200,7 +200,12 @@ function LoadPagerService() {
 				url = url + actionJson[i][supplier];
 				break;
 			}else if(actionJson[i]['local'] != undefined && actionJson[i]['local'] != ""){
-				url = actionJson[i]['local'];
+				let base = document.getElementsByTagName("base")[0];
+				if(base != undefined){
+					url = base.href + actionJson[i]['local'];
+				}else{
+					url = "/" + actionJson[i]['local'];
+				}
 				break;
 			}
 		}

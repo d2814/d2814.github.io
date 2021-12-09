@@ -95,14 +95,14 @@ body a:visited{
 /*文章*/
 .post{}
 .post .post-header{height: inherit; text-align: center;}
-.post .post-header-noimg{background: rgba(0,0,0,0.1);}
+.post .post-header-noimg{background: rgba(0,0,0,0.15);}
 .post .post-header .post-title{font-size: 13px; line-height: 15px; display: inline-block; font-weight: 700;}
 .post .post-header .post-subtitle{font-size: 10px; margin-top: 1%;}
-.post .post-media-1 .post-header-bg .post-header .post-subtitle{margin-bottom: 7px;}
+.post .post-media-1 .post-header-bg .post-header .post-subtitle{margin-bottom: 8px;}
 .post .post-media-1 .post-header-bg .post-tag{}
 .post .post-media-3 {height: auto;}
 .post .post-media-3 .post-header-bg{position: relative; background: rgba(0,0,0,0.2);}
-.post .post-media-3 .post-header-bg .post-header .post-subtitle{margin-bottom: 7px;}
+.post .post-media-3 .post-header-bg .post-header .post-subtitle{margin-bottom: 8px;}
 .post .mdui-chip{height: 20px; margin-2eft: 2px;}
 .post .mdui-chip .mdui-chip-title{line-height: 20px;font-size: 12px;}
 .post .mdui-chip a{text-decoration: none;}
@@ -126,33 +126,36 @@ body a:visited{
 	.post .post-header .post-subtitle{font-size: 10px;}
 }
 @media screen and (min-width: 600px) {
-	.post .post-media .post-header-bg .post-header .post-subtitle{margin-bottom: 10px;}
-	.post .post-header .post-title{line-height: 25px;font-size: 20px;}
+	.post .post-media-1 .post-header-bg .post-header .post-subtitle{margin-bottom: 10px;}
+	.post .post-media-3 .post-header-bg .post-header .post-subtitle{margin-bottom: 10px;}
+	.post .post-header .post-title{line-height: 25px;font-size: 16px;}
 	.post .post-header .post-subtitle{font-size: 13px;}
 }
 @media screen and (min-width: 800px) {
 	.post .mdui-chip{height: 21px;}
-	.post .mdui-chip .mdui-chip-title{line-height: 22px;font-size: 14px;}
-	.post .post-header .post-title{line-height: 30px;font-size: 22px;}
-	.post .post-header .post-subtitle{font-size: 16px;}
-}
-@media screen and (min-width: 1024px) {
-	.post .post-header .post-title{line-height: 25px;font-size: 18px;}
+	.post .mdui-chip .mdui-chip-title{line-height: 22px;font-size: 15px;}
+	.post .post-header .post-title{line-height: 30px;font-size: 17px;}
 	.post .post-header .post-subtitle{font-size: 14px;}
 }
+@media screen and (min-width: 1024px) {
+	.post .post-header .post-title{line-height: 25px;font-size: 17px;}
+	.post .post-header .post-subtitle{font-size: 15px;}
+}
 @media screen and (min-width: 1440px) {
-	.post .post-media .post-header-bg .post-header .post-subtitle{margin-bottom: 25px;}
+	.post .post-media-1 .post-header-bg .post-header .post-subtitle{margin-bottom: 25px;}
+	.post .post-media-3 .post-header-bg .post-header .post-subtitle{margin-bottom: 25px;}
 	.post .mdui-chip{height: 30px;}
 	.post .mdui-chip .mdui-chip-title{line-height: 30px;font-size: 17px;}
-	.post .post-header .post-title{line-height: 30px;font-size: 25px;}
+	.post .post-header .post-title{line-height: 30px;font-size: 22px;}
 	.post .post-header .post-subtitle{font-size: 18px;}
 }
 @media screen and (min-width: 1920px) {
-	.post .post-media .post-header-bg .post-header .post-subtitle{margin-bottom: 25px;}
-	.post .mdui-chip{height: 32px;}
-	.post .mdui-chip .mdui-chip-title{line-height: 32px;font-size: 17px;}
-	.post .post-header .post-title{line-height: 50px;font-size: 35px;}
-	.post .post-header .post-subtitle{font-size: 27px;}
+	.post .post-media-1 .post-header-bg .post-header .post-subtitle{margin-bottom: 25px;}
+	.post .post-media-3 .post-header-bg .post-header .post-subtitle{margin-bottom: 25px;}
+	.post .mdui-chip{height: 30px;}
+	.post .mdui-chip .mdui-chip-title{line-height: 30px;font-size: 17px;}
+	.post .post-header .post-title{line-height: 30px;font-size: 23px;}
+	.post .post-header .post-subtitle{font-size: 18px;}
 }
 /*文章*/
 
@@ -221,7 +224,7 @@ body a:visited{
 	font-size: 27px;
 }
 #body .archive-body .item .list-style{
-	top: -0.07em;
+	top: 0.85em;
 	left: -2.54em;
 	z-index: 2;
 }
@@ -433,7 +436,7 @@ body a:visited{
 
 /*SkyspacesSkin*/
 .skyspaces-body{
-	background: url(../img/0107.jpg);
+	background: url(/img/skyspaces.jpg);
 	background-size: 100% 50%;
 }
 .skyspaces-body #right-drawer ol li a{

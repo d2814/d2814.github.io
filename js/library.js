@@ -120,7 +120,7 @@ function CookieUtil() {
 
 //prism.min.css  default  (默认)灰
 //prism-dark.min.css  dark 褐
-//prism-funky.min.css funky 隐藏主题
+//prism-funky.min.css funky 黑透明条纹
 //prism-okaidia.min.css  okaidia 黑背景彩
 //prism-twilight.min.css twilight 黑背景土褐
 //prism-coy.min.css  coy 条纹
@@ -198,7 +198,7 @@ function IndigoSkin() {
 		this.htmlClassUtil.add(this.body[0], "body-grey");
 		if (this.pager.length > 0) this.htmlClassUtil.add(this.pager[0], "pager-theme-indigo");
 		this.body.attr("skin", "indigo");
-		this.codeTheme.cut("coy");
+		this.codeTheme.cut("default");
 	}
 	this.off = function() {
 		this.htmlClassUtil.remove(this.body[0], "mdui-theme-primary-indigo");
@@ -230,7 +230,7 @@ function DeepPurpleSkin() {
 		this.htmlClassUtil.add(this.body[0], "body-grey");
 		if (this.pager.length > 0) this.htmlClassUtil.add(this.pager[0], "pager-theme-deep-pupler");
 		this.body.attr("skin", "deep-purple");
-		this.codeTheme.cut("default");
+		this.codeTheme.cut("solarizedlight");
 	}
 	this.off = function() {
 		this.htmlClassUtil.remove(this.body[0], "mdui-theme-primary-deep-purple");

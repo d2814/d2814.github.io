@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="author" content="bin">
-<!--<base href="http://localhost:4000" />-->
+<base href="http://localhost:4000" />
 
 	<title>blog</title>
 	<meta name="description" content="个人学习记录与分享的小站！" />
@@ -183,13 +183,12 @@
 	<div class="mdui-container-fluid" id="body">
 	<div class="mdui-row">
 		<!-- body-left -->
+		<div class="mdui-col-xs-12 mdui-col-sm-12 mdui-col-md-12 mdui-col-lg-12 mdui-col-xl-12">
+			<!-- post -->
+			<div class="mdui-card mdui-color-theme-50 mdui-m-t-2 post">
+	<div class="mdui-card-media  post-media-1 ">
 		
-	<div class="mdui-col-xs-12 mdui-col-sm-12 mdui-col-md-12 mdui-col-lg-12 mdui-col-xl-12">
-		<!-- post -->
-		<div class="mdui-card mdui-color-theme-50 mdui-m-t-2 post">
-	<div class="mdui-card-media post-media">
-		
-			<img src="/img/004.jpeg" class="post-img"/>
+			<img src="https://cdn.w3cbus.com/mdui.org/docs/assets/docs/img/card.jpg" class="post-img"/>
 		
 		<div class="mdui-card-media-covered mdui-card-media-covered post-header-bg">
 			<div class="mdui-card-primary post-header">
@@ -292,12 +291,8 @@ $ hexo new "My New Post"
 <p>$$<br>\begin{equation}<br>\sum_{i=0}^n F_i \cdot \phi (H, p_i) - \sum_{i=1}^n a_i \cdot ( \tilde{x_i}, \tilde{y_i}) + b_i \cdot ( \tilde{x_i}^2 , \tilde{y_i}^2 )<br>\end{equation}<br>$$<br>$$<br>\begin{equation}<br>\beta^*(D) = \mathop{argmin} \limits_{\beta} \lambda {||\beta||}^2 + \sum_{i=1}^n max(0, 1 - y_i f_{\beta}(x_i))<br>\end{equation}<br>$$</p>
 	</div>
 </div>
-		<!-- post -->
-		<!-- pager -->
-		
-		<!-- pager -->
-	</div>
-
+			<!-- post -->
+		</div>
 		<!-- body-left -->
 	</div>
 </div>
@@ -338,7 +333,9 @@ $ hexo new "My New Post"
 
 	
 	<!-- js -->
-	<script async type="text/javascript" src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 	
 	<script>
 	MathJax = {

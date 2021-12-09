@@ -317,7 +317,7 @@ function Skin() {
 	this.skinNameList = ["indigo", "deep-purple", "purple", "skyspaces", "dark"]; //皮肤名称列表 注意:dark放最后
 	this.skinList = [new IndigoSkin(), new DeepPurpleSkin(), new PurpleSkin(), new SkyspacesSkin(),
 new DarkSkin()]; //皮肤对应名称实体对象
-	this.defaultSkinName = "indigo"; //默认皮肤
+	this.defaultSkinName = "deep-purple"; //默认皮肤
 	this.skinListFor = function(skinName, method) { //操作皮肤开/关/交换
 		for (let i = 0; i < this.skinNameList.length; i++) {
 			if (this.skinNameList[i] == skinName) {

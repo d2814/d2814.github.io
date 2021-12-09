@@ -263,7 +263,7 @@ function LoadPagerService() {
 					thisObj.domain.next = 0;
 				}
 			});
-		},100,name,key,len,this);
+		},200,name,key,len,this);
 	}
 	//根据文件名ajax方式获取资源并自定义回调处理（JS） 内部函数
 	this.ajaxLoadSource = function(name,fun) {
@@ -295,7 +295,7 @@ function LoadPagerService() {
 					thisObj.domain.data = null;
 				}
 			});
-		},100,name,key,len,this);
+		},200,name,key,len,this);
 	}
 	//根据列表内（JS.CSS）加载文件  执行优先级：先  内/外部函数
 	//不建议直接调用此函数，如必须 需要先获取rooturl
@@ -303,7 +303,7 @@ function LoadPagerService() {
 		if(actionList == undefined || actionList.length == 0){this.domain.beforFlag = true;return;}
 		setTimeout(function(actionList,thisObj){
 			console.log("befor等待资源中!");
-			if(index > 50){thisObj.domain.beforErrorFlag = true;return;}
+			if(index > 60){thisObj.domain.beforErrorFlag = true;return;}
 			if(!thisObj.domain.rootFlag){thisObj.befor(actionList,mode,index+1);return;}
 			console.log("befor开始加载!");
 			for(let i = 0; i < actionList.length; i++){
@@ -323,7 +323,7 @@ function LoadPagerService() {
 		if(actionList == undefined || actionList.length == 0){this.domain.loadFlag = true;return;}
 		setTimeout(function(actionList,thisObj){
 			console.log("load等待资源中!");
-			if(index > 50){thisObj.domain.loadErrorFlag = true;return;}
+			if(index > 60){thisObj.domain.loadErrorFlag = true;return;}
 			if(!thisObj.domain.rootFlag){thisObj.load(actionList,mode,index+1);return;}
 			if(!thisObj.domain.beforFlag){thisObj.load(actionList,mode,index+1);return;}
 			console.log("load开始加载!");
@@ -344,7 +344,7 @@ function LoadPagerService() {
 		if(actionList == undefined || actionList.length == 0){this.domain.afterFlag = true;return;}
 		setTimeout(function(actionList,thisObj){
 			console.log("after等待资源中!");
-			if(index > 50){thisObj.domain.afterErrorFlag = true;return;}
+			if(index > 60){thisObj.domain.afterErrorFlag = true;return;}
 			if(!thisObj.domain.rootFlag){thisObj.after(actionList,mode,index+1);return;}
 			if(!thisObj.domain.beforFlag){thisObj.after(actionList,mode,index+1);return;}
 			if(!thisObj.domain.loadFlag){thisObj.after(actionList,mode,index+1);return;}
@@ -366,7 +366,7 @@ function LoadPagerService() {
 		if(actionList == undefined || actionList.length == 0){this.domain.syncFlag = true;return;}
 		setTimeout(function(actionList,thisObj){
 			console.log("sync等待资源中!");
-			if(index > 50){thisObj.domain.syncErrorFlag = true;return;}
+			if(index > 60){thisObj.domain.syncErrorFlag = true;return;}
 			if(!thisObj.domain.rootFlag){thisObj.syncLoad(actionList,index+1);return;}
 			if(!thisObj.domain.beforFlag){thisObj.syncLoad(actionList,index+1);return;}
 			if(!thisObj.domain.loadFlag){thisObj.syncLoad(actionList,index+1);return;}
@@ -383,7 +383,7 @@ function LoadPagerService() {
 		if(actionList == undefined || actionList.length == 0){return;}
 		setTimeout(function(actionList,thisObj){
 			console.log("syncMerge等待资源中!");
-			if(index > 50){thisObj.domain.syncErrorFlag = true;return;}
+			if(index > 60){thisObj.domain.syncErrorFlag = true;return;}
 			if(!thisObj.domain.rootFlag){thisObj.syncMergeLoad(actionList,index+1);return;}
 			console.log("syncMerge开始加载!");
 			for(let i = 0;i < actionList.length; i++){

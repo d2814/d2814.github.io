@@ -26,9 +26,9 @@ function subSearch(){
 	search.progressStauts(search.getCurrentTableName(),null);
 	let date = new Date();
 	let t = "t=" + date.getFullYear() + (date.getMonth() + 1) + date.getDate() + date.getHours();
-	let base = document.getElementsByTagName("base")[0];
+	let base = document.getElementById("root");
 	let url = "/";
-	if(base != undefined){url = base.href;}
+	if(base != undefined){url = base.content;}
 	$.ajax({
 		url : url + 'search.json?' + t,
 		dataType : 'json',

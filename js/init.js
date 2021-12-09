@@ -200,9 +200,9 @@ function LoadPagerService() {
 				url = url + actionJson[i][supplier];
 				break;
 			}else if(actionJson[i]['local'] != undefined && actionJson[i]['local'] != ""){
-				let base = document.getElementsByTagName("base")[0];
+				let base = document.getElementById("root");
 				if(base != undefined){
-					url = base.href + actionJson[i]['local'];
+					url = base.content + actionJson[i]['local'];
 				}else{
 					url = "/" + actionJson[i]['local'];
 				}

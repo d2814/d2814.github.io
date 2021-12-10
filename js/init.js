@@ -196,18 +196,23 @@ function LoadPagerService() {
 		let supplier = this.domain.supplier;
 		let url = this.domain.url;
 		for(let i = 0; i < actionJson.length; i++){
-			if(actionJson[i]['name'] != name && i == actionJson.length - 1){url = "";}
+			if(actionJson[i]['name'] != name && i == actionJson.length - 1){url = "";break;}
 			if(actionJson[i]['name'] != name){continue;}
 			if(actionJson[i][supplier] != undefined && actionJson[i][supplier] != ""){
 				url = url + actionJson[i][supplier];
 				break;
 			}else if(actionJson[i]['local'] != undefined && actionJson[i]['local'] != ""){
 				let base = document.getElementById("root");
-				if(base != undefined){
+				if(base != null){
 					url = base.content + actionJson[i]['local'];
-				}else{
-					url = "/" + actionJson[i]['local'];
+					break;
 				}
+				base = document.getElementsByTagName("base");
+				if(base.length > 0){
+					url = base[0].href + actionJson[i]['local'];
+					break;
+				}
+				url = "/" + actionJson[i]['local'];
 				break;
 			}
 		}
@@ -215,7 +220,9 @@ function LoadPagerService() {
 	}
 	//dom中创建link(外部文件方式) 内部函数
 	this.createCss = function(name,mode,url,fun) {
-		let link = document.createElement("link");
+		let link = document.getElementById(name);
+		if(link != null || link != undefined){return;}
+		link = document.createElement("link");
 		link.rel = "stylesheet";
 		link.href = url;
 		if(mode == "async"){link.async = "async";}
@@ -229,7 +236,10 @@ function LoadPagerService() {
 	}
 	//dom中创建script(外部文件方式) 内部函数
 	this.createJs = function(name,mode,url,fun) {
-		let script = document.createElement("script");
+		let script = document.getElementById(name);
+		if(script != null || script != undefined){return;}
+		script = document.createElement("script");
+		script.id = name;
 		script.type = "text/javascript";
 		script.src = url;
 		if(mode == "async"){script.async = "async";}
@@ -242,8 +252,11 @@ function LoadPagerService() {
 		document.body.appendChild(script);
 	}
 	//dom中创建script(内联方式) 内部函数
-	this.createJsWithText = function(text) {
-		let script = document.createElement("script");
+	this.createJsWithText = function(name,text) {
+		let script = document.getElementById(name);
+		if(script != null || script != undefined){return;}
+		script = document.createElement("script");
+		script.id = name;
 		script.type = "text/javascript";
 		script.innerText = text;
 		document.body.appendChild(script);
@@ -298,7 +311,7 @@ function LoadPagerService() {
 					thisObj.domain.mergeFlag = true;
 					thisObj.domain.merge = 0;
 					// window.eval(thisObj.domain.data);
-					thisObj.createJsWithText(thisObj.domain.data);
+					thisObj.createJsWithText(name,thisObj.domain.data);
 					thisObj.domain.data = null;
 				}
 			});

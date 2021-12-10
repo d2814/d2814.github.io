@@ -175,7 +175,9 @@ function LoadPagerService() {
 			xhr.onreadystatechange = function(){
 				if(!domain.rootFlag && xhr.readyState == 4 && xhr.status == 200){
 					console.log(urlJson);
+					console.log("urlJsoni: " + urlJson[i]);
 					console.log("name: " + urlJson[i]['name']);
+					console.log("name: " + urlJson[i].name);
 					domain.rootFlag = true;
 					domain.supplier = urlJson[i]['name'];
 					domain.url = urlJson[i]['url'];

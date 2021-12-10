@@ -408,44 +408,63 @@ function LoadPagerService() {
 		if(rf && bf && lf && af && sf){return true;}
 		return false;
 	}
+	this.getLoadError = function(){
+		let bfe = this.domain.beforErrorFlag;
+		let lfe = this.domain.loadErrorFlag;
+		let afe = this.domain.afterErrorFlag;
+		let sfe = this.domain.syncErrorFlag;
+		if(bfe || lfe || afe || sfe){return true;}
+		return false;
+	}
 	this.checkMergeLoad = function(){
 		let rf = this.domain.rootFlag;
 		let mf = this.domain.mergeFlag
 		if(rf && mf){return true;}
 		return false;
 	}
+	this.getMergeLoadError = function(){
+		let mfe = this.domain.mergeErrorFlag;
+		if(mfe){return true;}
+		return false;
+	}
 	//加载器（将需要加载的JS/CSS通过数组传入，4个优先级，最后为同步（顺序）加载）  外部函数
 	//参数    beforList  loadList  afterList  syncList（同步）
 	//优先级     1           2         3         4
 	//优先级最高数组先执行
-	this.init = false;
+	this.init = "stop";//stop running check error
 	this.initLoad = function(beforList,loadList,afterList,syncList){
-		if(this.init){console.log("initLoad方法已加载！如需再次使用请创建新对象！");return;}
-		this.init = true;
-		if(this.domain.supplier == ""){this.getRootUrl();}
-		this.befor(beforList,"async",0);
-		this.load(loadList,"async",0);
-		this.after(afterList,"async",0);
-		this.syncLoad(syncList,0);
+		if(this.getLoadError()){this.init = "error";}
+		if(this.init == "running"){console.log("initLoad方法已加载！如需再次使用请创建新对象！");return;}
+		if(this.init == "stop" || this.init == "error"){
+			this.init = "running";
+			if(this.domain.supplier == ""){this.getRootUrl();}
+			this.befor(beforList,"async",0);
+			this.load(loadList,"async",0);
+			this.after(afterList,"async",0);
+			this.syncLoad(syncList,0);
+		}
 		setTimeout(function(beforList,loadList,afterList,syncList,thisObj){
 			if(thisObj.checkLoad()){console.log("加载JS/CSS完成！");return;}
-			thisObj.init = false;
+			thisObj.init = "check";
 			thisObj.initLoad(beforList,loadList,afterList,syncList);
-		},15000,beforList,loadList,afterList,syncList,this);
+		},10000,beforList,loadList,afterList,syncList,this);
 	}
 	//合并JS加载器  外部函数
 	//将数组内JS文件合并后加载并执行
 	//无优先级
-	this.merge = false;
+	this.merge = "stop";//stop running check error
 	this.megreLoad = function(actionList){
-		if(this.merge){console.log("megreLoad方法已加载！如需再次使用请创建新对象！");return;}
-		this.merge = true;
-		if(this.domain.supplier == ""){this.getRootUrl();}
-		this.syncMergeLoad(actionList,0);
+		if(this.getMergeLoadError()){this.merge = "error";}
+		if(this.merge == "running"){console.log("megreLoad方法已加载！如需再次使用请创建新对象！");return;}
+		if(this.merge == "stop" || this.merge == "error"){
+			this.merge = "running";
+			if(this.domain.supplier == ""){this.getRootUrl();}
+			this.syncMergeLoad(actionList,0);
+		}
 		setTimeout(function(actionList,thisObj){
 			if(thisObj.checkMergeLoad()){console.log("加载合并JS完成！");return;}
-			thisObj.merge = false;
+			thisObj.merge = "check";
 			thisObj.megreLoad(actionList);
-		},15000,actionList,this);
+		},10000,actionList,this);
 	}
 }

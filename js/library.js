@@ -94,27 +94,40 @@ function CookieUtil() {
 	this.delCookie = function(name) {
 		let exp = new Date();
 		exp.setTime(exp.getTime() - 1);
-		var restul = this.getCookie(name);
+		let restul = this.getCookie(name);
 		if (restul != null) {
 			document.cookie = name + "=" + "value" + "; expires=" + exp.toGMTString();
 		}
 	}
 	this.getSec = function(str) {
-		var str1 = str.substr(0, str.length - 1); //时间数值 
-		var str2 = str.substr(str.length - 1, 1); //时间单位
-		if (str2 == "s") {
-			return str1 * 1000;
-		} else if (str2 == "m") {
-			return str1 * 60 * 1000;
-		} else if (str2 == "h") {
-			return str1 * 60 * 60 * 1000;
-		} else if (str2 == "d") {
-			return str1 * 24 * 60 * 60 * 1000;
-		} else if (str2 == "M") {
-			return str1 * 31 * 24 * 60 * 60 * 1000;
-		} else if (str2 == "y") {
-			return str1 * 365 * 24 * 60 * 60 * 1000;
+		//时间数值 
+		let str1 = str.substr(0, str.length - 1);
+		//时间单位
+		let str2 = str.substr(str.length - 1, 1);
+		let number = 0;
+		switch (str2){
+			case "s":
+				number =  (str1 * 1000);
+				break;
+			case "m":
+				number = (str1 * 60 * 1000);
+				break;
+			case "h":
+				number = (str1 * 60 * 60 * 1000);
+				break;
+			case "d":
+				break;
+				number = (str1 * 24 * 60 * 60 * 1000);
+			case "M":
+				number = (str1 * 31 * 24 * 60 * 60 * 1000);
+				break;
+			case "y":
+				number = (str1 * 365 * 24 * 60 * 60 * 1000);
+				break;
+			default:
+				break;
 		}
+		return number;
 	}
 }
 
@@ -315,9 +328,8 @@ function Skin() {
 	this.skinSwitchDarkList = $("#left-tab1 .mdui-switch input"); //夜间模式按钮
 	this.skinSwitchList = $("#left-tab2 .mdui-list .mdui-list-item"); //皮肤按钮
 	this.skinNameList = ["indigo", "deep-purple", "purple", "skyspaces", "dark"]; //皮肤名称列表 注意:dark放最后
-	this.skinList = [new IndigoSkin(), new DeepPurpleSkin(), new PurpleSkin(), new SkyspacesSkin(),
-new DarkSkin()]; //皮肤对应名称实体对象
-	this.defaultSkinName = "deep-purple"; //默认皮肤
+	this.skinList = [new IndigoSkin(), new DeepPurpleSkin(), new PurpleSkin(), new SkyspacesSkin(), new DarkSkin()]; //皮肤对应名称实体对象
+	this.defaultSkinName = "indigo"; //默认皮肤
 	this.skinListFor = function(skinName, method) { //操作皮肤开/关/交换
 		for (let i = 0; i < this.skinNameList.length; i++) {
 			if (this.skinNameList[i] == skinName) {

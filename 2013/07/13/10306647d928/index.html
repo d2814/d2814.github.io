@@ -349,14 +349,13 @@ $ hexo new "My New Post"
 </script>
 	<script type="text/javascript">
 		var loadPager = new LoadPagerService();
-		let befor = ["mdui.css","font-awesome.css","main.css","prism.css",
-				"prism-toolbar.css","prism-line-numbers.css","prism-line-highlight.css"];
-		let load = ["library.js","jquery.js","mdui.js"];
-		let after = ["tex-svg-full.js","main.js"];
+		let befor = ["mdui.css","font-awesome.css","main.css","prism.css","prism-toolbar.css",
+			"prism-line-numbers.css","prism-line-highlight.css","library.js","jquery.js","mdui.js"];
+		let load = ["main.js","tex-svg-full.js"];
 		let merge = ["prism-core.js","prism-bash.js","prism-markup.js",
 			"prism-line-numbers.js","prism-toolbar.js","prism-show-language.js",
 			"prism-copy-to-clipboard.js"];
-		loadPager.initLoad(befor,load,after,[]);
+		loadPager.initLoad(befor,load,[],[]);
 		loadPager.megreLoad(merge);
 	</script>
 

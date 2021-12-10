@@ -167,25 +167,18 @@ function LoadPagerService() {
 		this.root = true;
 		domain = this.domain;
 		urlJson = domain.urlJson;
-		console.log(urlJson);
 		for (let i = 0; i < urlJson.length; i++) {
 			let xhr = new XMLHttpRequest();
-			let index = i;
+			let index = i;//兼容IE 直接使用i，回调会是for循环结束的
 			xhr.open('GET',urlJson[i]['testUrl'] + "?t=" + new Date().getTime());
 			xhr.send();
-			console.log("i: " + i);
 			xhr.onreadystatechange = function(){
 				if(!domain.rootFlag && xhr.readyState == 4 && xhr.status == 200){
-					console.log("xi: " + i);
-					console.log("index: " + index);
-					console.log("urlJson: " + urlJson);
-					console.log("urlJsoni: " + urlJson[i]);
-					console.log("name: " + urlJson[i]['name']);
-					console.log("name: " + urlJson[i].name);
+					if(urlJson[index] == undefined){return;}
 					domain.rootFlag = true;
-					domain.supplier = urlJson[i]['name'];
-					domain.url = urlJson[i]['url'];
-					console.log("CDN获取成功：" + urlJson[i]['name']);
+					domain.supplier = urlJson[index]['name'];
+					domain.url = urlJson[index]['url'];
+					console.log("CDN获取成功：" + urlJson[index]['name']);
 				}
 			}
 		}

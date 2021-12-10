@@ -167,6 +167,7 @@ function LoadPagerService() {
 		this.root = true;
 		domain = this.domain;
 		urlJson = domain.urlJson;
+		console.log(urlJson)
 		for (let i = 0; i < urlJson.length; i++) {
 			let xhr = new XMLHttpRequest();
 			xhr.open('GET',urlJson[i]['testUrl'] + "?t=" + new Date().getTime());
@@ -308,6 +309,7 @@ function LoadPagerService() {
 		if(actionList == undefined || actionList.length == 0){this.domain.beforFlag = true;return;}
 		setTimeout(function(actionList,thisObj){
 			console.log("befor等待资源中!");
+			if(index > 20){thisObj.getDefaultRootUrl();}
 			if(index > 60){thisObj.domain.beforErrorFlag = true;return;}
 			if(!thisObj.domain.rootFlag){thisObj.befor(actionList,mode,index+1);return;}
 			console.log("befor开始加载!");

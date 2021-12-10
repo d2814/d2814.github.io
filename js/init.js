@@ -170,11 +170,14 @@ function LoadPagerService() {
 		console.log(urlJson);
 		for (let i = 0; i < urlJson.length; i++) {
 			let xhr = new XMLHttpRequest();
+			let index = i;
 			xhr.open('GET',urlJson[i]['testUrl'] + "?t=" + new Date().getTime());
 			xhr.send();
+			console.log("i: " + i);
 			xhr.onreadystatechange = function(){
 				if(!domain.rootFlag && xhr.readyState == 4 && xhr.status == 200){
-					console.log("i: " + i);
+					console.log("xi: " + i);
+					console.log("index: " + index);
 					console.log("urlJson: " + urlJson);
 					console.log("urlJsoni: " + urlJson[i]);
 					console.log("name: " + urlJson[i]['name']);

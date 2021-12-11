@@ -116,30 +116,32 @@ body a:visited{
 }
 .post .post-actions a:hover{
 }
-.post .post-content{
-	padding: 3px;
-}
+.post .post-content{padding: 13px;}
 
 /*字体媒体查询*/
 @media screen and (min-width: 350px) {
 	.post .post-header .post-title{line-height: 21px; font-size: 15px;}
 	.post .post-header .post-subtitle{font-size: 10px;}
+	.post .post-content{padding: 3px;}
 }
 @media screen and (min-width: 600px) {
 	.post .post-media-1 .post-header-bg .post-header .post-subtitle{margin-bottom: 10px;}
 	.post .post-media-3 .post-header-bg .post-header .post-subtitle{margin-bottom: 10px;}
 	.post .post-header .post-title{line-height: 25px;font-size: 16px;}
 	.post .post-header .post-subtitle{font-size: 13px;}
+	.post .post-content{padding: 5px;}
 }
 @media screen and (min-width: 800px) {
 	.post .mdui-chip{height: 21px;}
 	.post .mdui-chip .mdui-chip-title{line-height: 22px;font-size: 15px;}
 	.post .post-header .post-title{line-height: 30px;font-size: 17px;}
 	.post .post-header .post-subtitle{font-size: 14px;}
+	.post .post-content{padding: 10px;}
 }
 @media screen and (min-width: 1024px) {
 	.post .post-header .post-title{line-height: 25px;font-size: 17px;}
 	.post .post-header .post-subtitle{font-size: 15px;}
+	.post .post-content{padding: 13px;}
 }
 @media screen and (min-width: 1440px) {
 	.post .post-media-1 .post-header-bg .post-header .post-subtitle{margin-bottom: 25px;}
@@ -148,6 +150,7 @@ body a:visited{
 	.post .mdui-chip .mdui-chip-title{line-height: 30px;font-size: 17px;}
 	.post .post-header .post-title{line-height: 30px;font-size: 22px;}
 	.post .post-header .post-subtitle{font-size: 18px;}
+	.post .post-content{padding: 15px;}
 }
 @media screen and (min-width: 1920px) {
 	.post .post-media-1 .post-header-bg .post-header .post-subtitle{margin-bottom: 25px;}
@@ -156,6 +159,7 @@ body a:visited{
 	.post .mdui-chip .mdui-chip-title{line-height: 30px;font-size: 17px;}
 	.post .post-header .post-title{line-height: 30px;font-size: 23px;}
 	.post .post-header .post-subtitle{font-size: 18px;}
+	.post .post-content{padding: 15px;}
 }
 /*文章*/
 

@@ -470,7 +470,7 @@ function LoadPagerService() {
 			}
 			thisObj.init = "check";
 			thisObj.initLoad(beforList,loadList,afterList,syncList);
-		},8000,beforList,loadList,afterList,syncList,this);
+		},5000,beforList,loadList,afterList,syncList,this);
 	}
 	//合并JS加载器  外部函数
 	//将数组内JS文件合并后加载并执行
@@ -493,6 +493,6 @@ function LoadPagerService() {
 			}
 			thisObj.merge = "check";
 			thisObj.megreLoad(actionList);
-		},8000,actionList,this);
+		},5000,actionList,this);
 	}
 }

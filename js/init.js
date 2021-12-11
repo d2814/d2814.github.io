@@ -221,7 +221,7 @@ function LoadPagerService() {
 	//dom中创建link(外部文件方式) 内部函数
 	this.createCss = function(name,mode,url,fun) {
 		let link = document.getElementById(name);
-		if(link != null || link != undefined){return;}
+		if(link != null || link != undefined){fun();return;}
 		link = document.createElement("link");
 		link.rel = "stylesheet";
 		link.href = url;
@@ -237,7 +237,7 @@ function LoadPagerService() {
 	//dom中创建script(外部文件方式) 内部函数
 	this.createJs = function(name,mode,url,fun) {
 		let script = document.getElementById(name);
-		if(script != null || script != undefined){return;}
+		if(script != null || script != undefined){fun();return;}
 		script = document.createElement("script");
 		script.id = name;
 		script.type = "text/javascript";
@@ -254,7 +254,7 @@ function LoadPagerService() {
 	//dom中创建script(内联方式) 内部函数
 	this.createJsWithText = function(name,text) {
 		let script = document.getElementById(name);
-		if(script != null || script != undefined){return;}
+		if(script != null || script != undefined){fun();return;}
 		script = document.createElement("script");
 		script.id = name;
 		script.type = "text/javascript";
@@ -323,9 +323,10 @@ function LoadPagerService() {
 		if(actionList == undefined || actionList.length == 0){this.domain.beforFlag = true;return;}
 		setTimeout(function(actionList,thisObj){
 			console.log("befor等待资源中!");
-			if(index > 20){thisObj.getDefaultRootUrl();}
-			if(index > 60){thisObj.domain.beforErrorFlag = true;return;}
+			if(index > 15){thisObj.getDefaultRootUrl();}
+			if(index > 20){thisObj.domain.beforErrorFlag = true;return;}
 			if(!thisObj.domain.rootFlag){thisObj.befor(actionList,mode,index+1);return;}
+			if(thisObj.domain.beforFlag){return;}
 			console.log("befor开始加载!");
 			for(let i = 0; i < actionList.length; i++){
 				thisObj.loadSource(actionList[i],mode,function(){
@@ -344,9 +345,10 @@ function LoadPagerService() {
 		if(actionList == undefined || actionList.length == 0){this.domain.loadFlag = true;return;}
 		setTimeout(function(actionList,thisObj){
 			console.log("load等待资源中!");
-			if(index > 60){thisObj.domain.loadErrorFlag = true;return;}
+			if(index > 30){thisObj.domain.loadErrorFlag = true;return;}
 			if(!thisObj.domain.rootFlag){thisObj.load(actionList,mode,index+1);return;}
 			if(!thisObj.domain.beforFlag){thisObj.load(actionList,mode,index+1);return;}
+			if(thisObj.domain.loadFlag){return;}
 			console.log("load开始加载!");
 			for(let i = 0; i < actionList.length; i++){
 				thisObj.loadSource(actionList[i],mode,function(){
@@ -365,10 +367,11 @@ function LoadPagerService() {
 		if(actionList == undefined || actionList.length == 0){this.domain.afterFlag = true;return;}
 		setTimeout(function(actionList,thisObj){
 			console.log("after等待资源中!");
-			if(index > 60){thisObj.domain.afterErrorFlag = true;return;}
+			if(index > 30){thisObj.domain.afterErrorFlag = true;return;}
 			if(!thisObj.domain.rootFlag){thisObj.after(actionList,mode,index+1);return;}
 			if(!thisObj.domain.beforFlag){thisObj.after(actionList,mode,index+1);return;}
 			if(!thisObj.domain.loadFlag){thisObj.after(actionList,mode,index+1);return;}
+			if(thisObj.domain.afterFlag){return;}
 			console.log("after开始加载!");
 			for(let i = 0; i < actionList.length; i++){
 				thisObj.loadSource(actionList[i],mode,function(){
@@ -387,11 +390,12 @@ function LoadPagerService() {
 		if(actionList == undefined || actionList.length == 0){this.domain.syncFlag = true;return;}
 		setTimeout(function(actionList,thisObj){
 			console.log("sync等待资源中!");
-			if(index > 60){thisObj.domain.syncErrorFlag = true;return;}
+			if(index > 30){thisObj.domain.syncErrorFlag = true;return;}
 			if(!thisObj.domain.rootFlag){thisObj.syncLoad(actionList,index+1);return;}
 			if(!thisObj.domain.beforFlag){thisObj.syncLoad(actionList,index+1);return;}
 			if(!thisObj.domain.loadFlag){thisObj.syncLoad(actionList,index+1);return;}
 			if(!thisObj.domain.afterFlag){thisObj.syncLoad(actionList,index+1);return;}
+			if(thisObj.domain.syncFlag){return;}
 			console.log("sync开始加载!");
 			for(let i = 0; i < actionList.length; i++){
 				thisObj.syncLoadSource(actionList[i],i,actionList.length);
@@ -404,8 +408,9 @@ function LoadPagerService() {
 		if(actionList == undefined || actionList.length == 0){return;}
 		setTimeout(function(actionList,thisObj){
 			console.log("syncMerge等待资源中!");
-			if(index > 60){thisObj.domain.syncErrorFlag = true;return;}
+			if(index > 30){thisObj.domain.syncErrorFlag = true;return;}
 			if(!thisObj.domain.rootFlag){thisObj.syncMergeLoad(actionList,index+1);return;}
+			if(thisObj.domain.mergeFlag){return;}
 			console.log("syncMerge开始加载!");
 			for(let i = 0;i < actionList.length; i++){
 				thisObj.ajaxLoadMergeSource(actionList[i],i,actionList.length);
@@ -446,9 +451,8 @@ function LoadPagerService() {
 	//优先级最高数组先执行
 	this.init = "stop";//stop running check error
 	this.initLoad = function(beforList,loadList,afterList,syncList){
-		if(this.getLoadError()){this.init = "error";}
 		if(this.init == "running"){console.log("initLoad方法已加载！如需再次使用请创建新对象！");return;}
-		if(this.init == "stop" || this.init == "error"){
+		if(this.init == "stop"){
 			this.init = "running";
 			if(this.domain.supplier == ""){this.getRootUrl();}
 			this.befor(beforList,"async",0);
@@ -458,26 +462,37 @@ function LoadPagerService() {
 		}
 		setTimeout(function(beforList,loadList,afterList,syncList,thisObj){
 			if(thisObj.checkLoad()){console.log("加载JS/CSS完成！");return;}
+			if(thisObj.getLoadError()){
+				console.log("加载出错，开始重载！");
+				var overLoad = new LoadPagerService();
+				overLoad.initLoad(beforList,loadList,afterList,syncList);
+				return;
+			}
 			thisObj.init = "check";
 			thisObj.initLoad(beforList,loadList,afterList,syncList);
-		},10000,beforList,loadList,afterList,syncList,this);
+		},8000,beforList,loadList,afterList,syncList,this);
 	}
 	//合并JS加载器  外部函数
 	//将数组内JS文件合并后加载并执行
 	//无优先级
 	this.merge = "stop";//stop running check error
 	this.megreLoad = function(actionList){
-		if(this.getMergeLoadError()){this.merge = "error";}
 		if(this.merge == "running"){console.log("megreLoad方法已加载！如需再次使用请创建新对象！");return;}
-		if(this.merge == "stop" || this.merge == "error"){
+		if(this.merge == "stop"){
 			this.merge = "running";
 			if(this.domain.supplier == ""){this.getRootUrl();}
 			this.syncMergeLoad(actionList,0);
 		}
 		setTimeout(function(actionList,thisObj){
 			if(thisObj.checkMergeLoad()){console.log("加载合并JS完成！");return;}
+			if(thisObj.getMergeLoadError()){
+				console.log("加载出错，开始重载！");
+				var overLoad = new LoadPagerService();
+				overLoad.megreLoad(actionList);
+				return;
+			}
 			thisObj.merge = "check";
 			thisObj.megreLoad(actionList);
-		},10000,actionList,this);
+		},8000,actionList,this);
 	}
 }
